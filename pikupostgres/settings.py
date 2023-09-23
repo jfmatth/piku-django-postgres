@@ -123,8 +123,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # PIKU Specific settings
-
 import os
+
+DEBUG = False or 'DEBUG' in os.environ
 
 ALLOWED_HOSTS = [os.environ.get("NGINX_SERVER_NAME", "*" if DEBUG else "")]
 
@@ -135,3 +136,4 @@ if DB:
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
