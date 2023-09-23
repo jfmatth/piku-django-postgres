@@ -38,11 +38,11 @@ release: ./bin/stage_release.sh
 cron: 0 0 * * * ./bin/uwsgi_cron_midnight.sh
 ```
 
-### Release
+### release
 Each time you push your code, Piku will run a 'release' cycle and run this code.  ```./bin/stage_release.sh``` only runs Django's collectstatic function, but you can add more
 
-### CRON
-Piku is able to use UWSGI to schedule Cron jobs.  ```./bin/uwsgi_cron_midnight.sh``` runs a Django clearsessions command every day at 0:00 (midnight)
+### cron
+Piku uses UWSGI to schedule Cron jobs.  ```./bin/uwsgi_cron_midnight.sh``` runs a Django clearsessions command every day at 0:00 (midnight)
 
 ### UWSGI Static file mapping
 The ```ENV``` file defines a feature that has NGINX serve this application static files directly from the folder
@@ -50,7 +50,7 @@ The ```ENV``` file defines a feature that has NGINX serve this application stati
 NGINX_STATIC_PATHS=/static:static
 ```
 ## Django changes
-There are minor changes to Django utilize Piku better.  These are added to the end of ```settings.py```
+There are a few minor changes to Django to utilize Piku.  These are added to the end of ```settings.py```
 1. ```DEBUG``` - Debug is set to False unless the environment variable ```DEBUG``` is defined (```piku config:set DEBUG=true```)
 2. ```ALLOWED_HOSTS```  uses the NGINX_SERVER_NAME or DEBUG for security purposes
 3. ```DATABASES``` is updated if NGINX_SERVER_NAME is defined
