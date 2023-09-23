@@ -1,4 +1,4 @@
-# README for Piku Django4 Postgres
+# Piku Django4 Postgres
 
 Provides an example Django 4.x app using Postgres locally on the PIKU server.
 
@@ -23,6 +23,13 @@ Provision the Postgres Database - The Database is given the same name as your NG
 piku run -- ./bin/provision-database.sh
 ```
 
+Create your superuser
+```
+piku shell
+./manage.py createsuperuser
+```
+
+
 ## PIKU features utilized
 This app utilizes several of Piku's ```Procfile``` features
 ```
@@ -42,7 +49,6 @@ The ```ENV``` file defines a feature that has NGINX serve this application stati
 ```
 NGINX_STATIC_PATHS=/static:static
 ```
-
 ## Django changes
 There are minor changes to Django utilize Piku better.  These are added to the end of ```settings.py```
 1. ```DEBUG``` - Debug is set to False unless the environment variable ```DEBUG``` is defined (```piku config:set DEBUG=true```)
