@@ -18,7 +18,7 @@ Set the hostname for NGINX
 ```
 piku config:set NGINX_SERVER_NAME=<your fqdn>
 ```
-Provision the Postgres Database - The Database is given the same name as your NGINX_SERVER_NAME via createdb and runs Django's migrate command
+Provision the Postgres Database - The Database is given the same name as your NGINX_SERVER_NAME via createdb and runs Django's migrate commmand ```python manage.py migrate```
 ```
 piku run -- ./bin/provision-database.sh
 ```
