@@ -29,8 +29,17 @@ piku shell
 ./manage.py createsuperuser
 ```
 
+## Database Changes
+Django makes it easy to modify the schema for your Models.  However, you'll need to update the running DB via 'manage.py migrate' before pushing the code changes.  Piku provides an easy way to accomplish this:
 
-## PIKU features utilized
+```
+piku stop
+piku shell 
+./manage.py migrate
+```
+After this, you can ```git push piku``` and you should be OK  
+
+# PIKU features utilized
 This app utilizes several of Piku's ```Procfile``` features
 ```
 wsgi: pikupostgres.wsgi:application
@@ -38,20 +47,36 @@ release: ./bin/stage_release.sh
 cron: 0 0 * * * ./bin/uwsgi_cron_midnight.sh
 ```
 
-### release
+## release
 Each time you push your code, Piku will run a 'release' cycle and run this code.  ```./bin/stage_release.sh``` only runs Django's collectstatic function, but you can add more
 
-### cron
+## cron
 Piku uses UWSGI to schedule Cron jobs.  ```./bin/uwsgi_cron_midnight.sh``` runs a Django clearsessions command every day at 0:00 (midnight)
 
-### UWSGI Static file mapping
+## UWSGI static file mapping
 The ```ENV``` file defines a feature that has NGINX serve this application static files directly from the folder
 ```
 NGINX_STATIC_PATHS=/static:static
 ```
-## Django changes
+# Django changes
 There are a few minor changes to Django to utilize Piku.  These are added to the end of ```settings.py```
 1. ```DEBUG``` - Debug is set to False unless the environment variable ```DEBUG``` is defined (```piku config:set DEBUG=true```)
 2. ```ALLOWED_HOSTS```  uses the NGINX_SERVER_NAME or DEBUG for security purposes
 3. ```DATABASES``` is updated if NGINX_SERVER_NAME is defined
 4. ```STATIC_ROOT``` is defined to reference the /static folder (tied to the above UWSGI setting)
+
+
+# Pipenv considerations
+If you use Pipenv for virtual environments, and given that Piku uses requirements.txt for it's python packages, you need to generate this before being pushed to piku.  A freindly devops method is to use GIT's pre-commit hook.
+
+Add the following file to ./.git/hooks/pre-commit (as +x)
+```
+#!/bin/bash
+
+# Generate requirements.txt from Pipfile
+pipenv sync
+pipenv requirements > requirements.txt
+
+# Add requirements.txt to the commit
+git add requirements.txt
+```
