@@ -8,22 +8,23 @@ Provides an example Django 4.x app using Postgres locally on the PIKU server.
     ``` ./piku-bootstrap install postgres.yml```
 
 ## Installation
-Clone this repo and push it to your Piku server
+### Clone this repo and push it to your Piku server
 ```
 git clone ...
 git remote add piku ..<your server here>    
 git push piku
 ```
-Set the hostname for NGINX
+### Set the hostname for NGINX
 ```
 piku config:set NGINX_SERVER_NAME=<your fqdn>
 ```
-Provision the Postgres Database - The Database is given the same name as your NGINX_SERVER_NAME via createdb and runs Django's migrate commmand ```python manage.py migrate```
+### Provision the Postgres Database  
+The Database is given the same name as your NGINX_SERVER_NAME via createdb and runs Django's migrate commmand ```python manage.py migrate```
 ```
 piku run -- ./bin/provision-database.sh
 ```
 
-Create your superuser
+### Create your superuser
 ```
 piku shell
 ./manage.py createsuperuser
