@@ -1,17 +1,18 @@
-# Piku Django4 Postgres
+# Piku Django Postgres
 
-Provides an example Django 4.x app using Postgres locally on the PIKU server.
+Provides an example Django app using Postgres locally on the PIKU server.
 
 ## Requirements
 1. Piku
-2. Postgres installed on PIKU vm
-    ``` ./piku-bootstrap install postgres.yml```
+2. Postgres installed on PIKU vm 
+``` ./piku-bootstrap install postgres.yml```
 
 ## Installation
+
 ### Clone this repo and push it to your Piku server
 ```
 git clone ...
-git remote add piku ..<your server here>    
+git remote add piku piku@<your server here>:<app>
 git push piku
 ```
 ### Set the hostname for NGINX
@@ -29,7 +30,6 @@ piku run -- ./bin/provision-database.sh
 piku shell
 ./manage.py createsuperuser
 ```
-
 
 # Piku features utilized
 This app utilizes several of Piku's ```Procfile``` features
