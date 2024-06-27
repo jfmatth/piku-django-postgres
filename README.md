@@ -7,6 +7,9 @@ Provides an example Django app using Postgres locally on the PIKU server.
 2. Postgres installed on PIKU vm 
 ``` ./piku-bootstrap install postgres.yml```
 
+Wehave updated the REadme to be better....
+
+
 ## Installation
 
 ### Clone this repo and push it to your Piku server
